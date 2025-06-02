@@ -53,6 +53,18 @@
             font-size: 12px;
             font-weight: bold;
         }
+        .prose ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            margin-top: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .prose h3 {
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            font-size: 1.25rem;
+        }
     </style>
 </head>
 <body class="font-sans antialiased text-gray-800">
@@ -215,10 +227,19 @@
                 <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
                     Simple, Transparent Pricing
                 </p>
-                <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
-                    Choose the plan that works best for your business needs. Don't forget to book a call with us before purchasing.
-                </p>
-            </div>
+                <div id="pricing-confirmation" class="mt-8 max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-lg font-bold mb-4">Before purchasing a plan, please confirm:</h3>
+                    <ul class="list-disc pl-5 space-y-2 text-left">
+                        <li>I have completed a Zoom call with a member of staff</li>
+                        <li>I have submitted my business name and website to j.aireceptionists@gmail.com for setup purposes</li>
+                        <li>I understand that failure to provide this information may delay activation of the AI Receptionist service</li>
+                        <li><strong>I have read and agree to the <a href="#" id="terms-link" class="text-purple-600 hover:text-purple-800">Terms and Conditions</a></strong></li>
+                    </ul>
+                    <button id="confirm-pricing-btn" class="mt-6 cta-button hover-scale inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white">
+                        I Confirm - Show Pricing Options
+                    </button>
+                </div>
+                <div id="pricing-content" class="hidden">
 
             <div class="mt-12">
                 <div class="flex justify-center mb-8">
@@ -253,7 +274,6 @@
                                     <i class="fas fa-check-circle"></i>
                                 </div>
                                 <p class="ml-3 text-base text-gray-700">5 concurrent calls</p>
-                          
                             </li>
                         </ul>
                         <div class="mt-8">
@@ -459,6 +479,8 @@
             <div class="mt-12 text-center">
                 <p class="text-gray-500">Need a custom solution? <a href="https://calendly.com/juliankundu600/ai-receptionist-one-to-one-walkthrough" target="_blank" class="text-purple-600 hover:text-purple-800 font-medium">Contact us</a> for enterprise pricing.</p>
             </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -551,8 +573,11 @@
             </div>
             <div class="mt-12 border-t border-gray-700 pt-8">
                 <p class="text-base text-gray-400">
-                    &copy; 2025 Julian Kundu. All rights reserved.
+                    &copy; 2025 Julian Kundu. All rights reserved. For inquiries, contact us at: j.aireceptionists@gmail.com
                 </p>
+                <button id="terms-btn" class="mt-4 text-purple-400 hover:text-purple-300 text-sm font-medium">
+                    View Terms and Conditions
+                </button>
             </div>
         </div>
     </footer>
@@ -561,6 +586,12 @@
     <script src="https://www.paypal.com/sdk/js?client-id=AQ4q3G5Xmocsi0WUAfpJ1LxwTcqdJIZB5XK05SvesRXHL6E9JGrXX_jMCjJs72n7zGLCxtOALc1OV8sb&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
     
     <script>
+        // Show pricing when confirmation button is clicked
+        document.getElementById('confirm-pricing-btn').addEventListener('click', function() {
+            document.getElementById('pricing-confirmation').classList.add('hidden');
+            document.getElementById('pricing-content').classList.remove('hidden');
+        });
+
         // Mobile menu toggle
         document.getElementById('mobile-menu-button').addEventListener('click', function() {
             const menu = document.getElementById('mobile-menu');
@@ -613,6 +644,14 @@
             this.classList.remove('bg-white', 'text-gray-700');
             document.getElementById('monthly-btn').classList.add('bg-white', 'text-gray-700');
             document.getElementById('monthly-btn').classList.remove('bg-purple-600', 'text-white');
+        });
+
+        // Show annual plans by default when pricing is revealed
+        document.getElementById('confirm-pricing-btn').addEventListener('click', function() {
+            document.getElementById('pricing-confirmation').classList.add('hidden');
+            document.getElementById('pricing-content').classList.remove('hidden');
+            // Trigger annual view
+            document.getElementById('annual-btn').click();
         });
 
         // PayPal Monthly Subscription Buttons
@@ -752,6 +791,124 @@
               alert('Thank you for your Agency Annual subscription! Subscription ID: ' + data.subscriptionID);
             }
         }).render('#paypal-button-container-P-06G61211WB5311946NA4ONFI');
+    </script>
+
+    <!-- Terms and Conditions Modal -->
+    <div id="terms-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden overflow-y-auto">
+        <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl sm:w-full">
+                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 max-h-[80vh] overflow-y-auto">
+                    <h2 class="text-2xl font-bold mb-4">Terms and Conditions – AI Receptionist Service</h2>
+                    <div class="prose max-w-none">
+                        <p><strong>Effective Date:</strong> 2nd June 2025</p>
+                        <p>These Terms and Conditions ("Agreement") govern the use of the AI Receptionist service provided by <strong>Julian Kundu</strong> ("Service Provider", "we", "our", or "us") to the subscribing business ("Client", "you", or "your").</p>
+                        <p>By subscribing to the AI Receptionist service, you agree to the following terms:</p>
+
+                        <h3>1. Service Description</h3>
+                        <p>The AI Receptionist is a virtual assistant powered by artificial intelligence. Some of its capabilities include:</p>
+                        <ul>
+                            <li>Answering frequently asked customer questions using business-specific information</li>
+                            <li>Booking appointments automatically through Calendly or sending customers SMS links to book themselves</li>
+                            <li>Capturing and storing contact details from inbound callers</li>
+                            <li>Operating 24/7, including after hours, weekends, and holidays</li>
+                        </ul>
+                        <p>The assistant is customized based on your website content and any additional information you provide.</p>
+
+                        <h3>2. Onboarding Requirements</h3>
+                        <p>Before activation, you must:</p>
+                        <ul>
+                            <li>Attend a Zoom setup call with the Service Provider</li>
+                            <li>Send your business name and website link to <strong>j.aireceptionists@gmail.com</strong></li>
+                        </ul>
+                        <p>Service setup will not begin until this information is provided.</p>
+
+                        <h3>3. Subscription & Payment</h3>
+                        <ul>
+                            <li>The AI Receptionist is available via monthly or yearly subscription.</li>
+                            <li>Plans include: Starter, Pro, Growth, and Agency, as well as an option for a custom enterprise solution</li>
+                            <li>Pricing is based on the number of AI call time minutes you require each month. Larger businesses may need more minutes, resulting in a higher plan tier.</li>
+                            <li>Payments are handled securely via PayPal.</li>
+                            <li>Subscriptions can be cancelled at any time. You will be billed at the start of each billing cycle. All payments are final and non-refundable.</li>
+                        </ul>
+
+                        <h3>4. Usage & Limitations</h3>
+                        <ul>
+                            <li>Your usage is limited to the plan you select. If your call volume exceeds your plan's capacity, (e.g. the plan's call time minutes surpassed) you will be billed for the extra minutes. Additional charges for exceeded minutes vary depending on your selected plan.</li>
+                            <li>Appointment bookings are handled via your integrated Calendly account - you will be provided with login credentials. Appointment bookings are also possible through an SMS confirmation sent to the caller containing the link to your personal calendar.</li>
+                            <li>Performance may be affected if limits are consistently exceeded without upgrading.</li>
+                        </ul>
+
+                        <h3>5. Cancellation & Refunds</h3>
+                        <ul>
+                            <li>You may cancel at any time.</li>
+                            <li>No refunds are provided for the current billing period (monthly or annually).</li>
+                            <li>Should you choose to cancel, our services will remain active to you until the end of your billing cycle. If you prefer to have them deleted, you may let us know via email.</li>
+                        </ul>
+
+                        <h3>6. Data & Privacy</h3>
+                        <ul>
+                            <li>The AI accesses public information from your website and any content you provide.</li>
+                            <li>All data collected (e.g. caller names, contact info) is stored securely through Calendly or other designated tools.</li>
+                            <li>You are responsible for managing this data appropriately according to your local regulations.</li>
+                        </ul>
+
+                        <h3>7. Support & Maintenance</h3>
+                        <ul>
+                            <li>Ongoing support is available via email: <strong>j.aireceptionists@gmail.com</strong></li>
+                            <li>We will assist with setup, updates, and minor modifications as needed. All plans come with unlimited free revisions.</li>
+                        </ul>
+
+                        <h3>8. Intellectual Property</h3>
+                        <ul>
+                            <li>The AI flows, setup structure, and related assets remain the intellectual property of the Service Provider.</li>
+                            <li>You may not duplicate, resell, or redistribute the service in any form.</li>
+                        </ul>
+
+                        <h3>9. Termination</h3>
+                        <ul>
+                            <li>The Service Provider reserves the right to terminate service if the AI is used inappropriately or these terms are violated.</li>
+                            <li>Inappropriate use includes but is not limited to spam-like behavior, misleading representation, or abuse of system resources.</li>
+                        </ul>
+
+                        <h3>10. Limitation of Liability</h3>
+                        <ul>
+                            <li>We are not liable for missed customer interactions, technical issues, or incorrect data collection.</li>
+                            <li>The service is offered "as is" and may be updated over time to improve performance.</li>
+                        </ul>
+
+                        <h3>11. Changes to These Terms</h3>
+                        <p>These terms may be updated. You will be notified via email of any major changes.</p>
+
+                        <p><strong>By subscribing to the service, you confirm that you have read and agree to these Terms and Conditions.</strong></p>
+                    </div>
+                </div>
+                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <button type="button" id="close-terms" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Terms and Conditions Modal
+        document.getElementById('terms-btn').addEventListener('click', function() {
+            document.getElementById('terms-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        });
+
+        document.getElementById('close-terms').addEventListener('click', function() {
+            document.getElementById('terms-modal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        });
+
+        // Handle terms link click in confirmation message
+        document.getElementById('terms-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('terms-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        });
     </script>
 </body>
 </html>
